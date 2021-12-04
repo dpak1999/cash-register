@@ -1,5 +1,7 @@
 /** @format */
 
+import FormInput from './components/FormInput';
+
 function App() {
   return (
     <div className="bg-gray-200 min-h-screen">
@@ -10,6 +12,8 @@ function App() {
         Please enter the bill amount and the cash given by customer <br /> to
         know the minimum number of notes to return
       </p>
+
+      <FormInput />
     </div>
   );
 }
