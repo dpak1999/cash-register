@@ -9,6 +9,7 @@ const FormInput = () => {
   const [showCash, setShowCash] = useState(false);
   const [showButton, setShowButton] = useState(true);
   const [status, setStatus] = useState(false);
+  const [error, setError] = useState(false);
   const [denomination, setDenomination] = useState([]);
   const [number, setNumber] = useState([]);
 
@@ -26,9 +27,14 @@ const FormInput = () => {
       number.push(numberOfNotes);
     }
 
-    setDenomination(denomination);
-    setNumber(number);
-    setStatus(true);
+    if (amountToBeReturned > 0) {
+      setDenomination(denomination);
+      setNumber(number);
+      setStatus(true);
+      setError(false);
+    } else {
+      setError(true);
+    }
   }
 
   return (
@@ -76,13 +82,17 @@ const FormInput = () => {
         </div>
       )}
 
-      <div>
+      {error ? (
+        <p className="text-center rounded py-5 max-w-xl mx-auto border border-indigo-500 mt-5 text-2xl">
+          The customer needs to pay more cash to you
+        </p>
+      ) : (
         <CashTable
           number={number}
           denomination={denomination}
           status={status}
         />
-      </div>
+      )}
     </>
   );
 };
