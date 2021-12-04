@@ -1,12 +1,14 @@
 /** @format */
 
 import { useState } from 'react';
+import CashTable from './CashTable';
 
 const FormInput = () => {
   const [billAmount, setBillAmount] = useState(undefined);
   const [cashGiven, setCashGiven] = useState(undefined);
   const [showCash, setShowCash] = useState(false);
   const [showButton, setShowButton] = useState(true);
+  const [status, setStatus] = useState(false);
   const [denomination, setDenomination] = useState([]);
   const [number, setNumber] = useState([]);
 
@@ -26,6 +28,7 @@ const FormInput = () => {
 
     setDenomination(denomination);
     setNumber(number);
+    setStatus(true);
   }
 
   return (
@@ -72,6 +75,14 @@ const FormInput = () => {
           </button>
         </div>
       )}
+
+      <div>
+        <CashTable
+          number={number}
+          denomination={denomination}
+          status={status}
+        />
+      </div>
     </>
   );
 };
