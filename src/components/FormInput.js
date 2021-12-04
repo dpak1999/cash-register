@@ -3,10 +3,30 @@
 import { useState } from 'react';
 
 const FormInput = () => {
-  const [billAmount, setBillAmount] = useState(null);
-  const [cashGiven, setCashGiven] = useState(null);
+  const [billAmount, setBillAmount] = useState(undefined);
+  const [cashGiven, setCashGiven] = useState(undefined);
   const [showCash, setShowCash] = useState(false);
   const [showButton, setShowButton] = useState(true);
+  const [denomination, setDenomination] = useState([]);
+  const [number, setNumber] = useState([]);
+
+  const availableNotes = [2000, 500, 200, 100, 50, 20, 10, 5, 1];
+  const amountToBeReturned = cashGiven - billAmount;
+
+  function calculateChange(amount) {
+    const number = [];
+    const denomination = [];
+
+    for (let i = 0; i < availableNotes.length; i++) {
+      const numberOfNotes = Math.trunc(amount / availableNotes[i]);
+      amount = amount % availableNotes[i];
+      denomination.push(availableNotes[i]);
+      number.push(numberOfNotes);
+    }
+
+    setDenomination(denomination);
+    setNumber(number);
+  }
 
   return (
     <>
@@ -45,7 +65,7 @@ const FormInput = () => {
           />
           <br />
           <button
-            onClick={() => setShowCash(true)}
+            onClick={() => calculateChange(amountToBeReturned)}
             className="mt-4 border border-purple-600 rounded px-4 py-1 hover:bg-purple-500 hover:text-white"
           >
             Check
